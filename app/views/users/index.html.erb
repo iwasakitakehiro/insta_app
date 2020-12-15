@@ -4,5 +4,8 @@
 <ul class="users">
   <% @users.each do |user| %>
   <%= render @users %>
+  <div id="like-btn-<%= micropost.id %>">
+   <%= render 'likes/like', micropost: micropost %>
+  </div>
   <% end %>
 </ul>

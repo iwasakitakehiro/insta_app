@@ -3,6 +3,9 @@
   <span class="user"><%= link_to micropost.user.user_name, micropost.user %></span>
   <span class="content"><%= micropost.content %></span>
   <span class="timestamp">
+  <div id="like-btn-<%= micropost.id %>">
+   <%= render 'likes/like', micropost: micropost %>
+  </div>
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
     <% if current_user?(micropost.user) %>
       <%= link_to "delete", micropost, method: :delete,
