@@ -33,6 +33,14 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
+
+  def search
+    if params[:user_name].present?
+      @users = User.where('user_name LIKE ?', "%#{params[:user_name]}%")
+    else
+      @users = User.none
+    end
+  end
   
   def update
     @user = User.find(params[:id])
