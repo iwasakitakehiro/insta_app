@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'microposts/index/:id' => 'microposts#index', as: 'microposts_index'
   get 'password_resets/new'
   get 'password_resets/edit'
   get 'sessions/new'

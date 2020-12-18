@@ -1,6 +1,10 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
+
+  def index
+    @micropost = Micropost.find(params[:id])
+  end
   
   def show
     redirect_to micropost_path

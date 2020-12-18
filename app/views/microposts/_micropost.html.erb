@@ -1,7 +1,7 @@
 <li id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.user_name, micropost.user %></span>
-  <span class="content"><%= micropost.content %></span>
+  <span class="content"><%= link_to micropost.content, microposts_index_path(micropost) %></span>
   <span class="timestamp">
   <div id="like-btn-<%= micropost.id %>">
    <%= render 'likes/like', micropost: micropost %>
