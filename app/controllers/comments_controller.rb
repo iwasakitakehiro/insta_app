@@ -5,8 +5,12 @@ class CommentsController < ApplicationController
     #投稿に紐づいたコメントを作成
     @comment = @micropost.comments.build(comment_params)
     @comment.user_id = current_user.id
-    @comment.save
-    redirect_to request.referrer || root_url
+    @comment_post = @comment.micropost
+    if @comment.save
+      #通知の作成
+      @comment_post.create_notification_comment!(current_user, @comment.id)
+      redirect_to request.referrer || root_url
+    end
   end
 
   def destroy

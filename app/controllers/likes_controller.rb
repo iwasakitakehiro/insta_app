@@ -5,6 +5,7 @@ class LikesController < ApplicationController
         @user = current_user
         @micropost = Micropost.find(params[:micropost_id])
         @like = Like.create(user_id: @user.id, micropost_id: @micropost.id)
+        @micropost.create_notification_by(current_user)
     end
     
     def destroy
