@@ -12,4 +12,18 @@
                                        data: { confirm: "You sure?" } %>
     <% end %>
   </span>
+  <div class="row">
+    <ul>
+        <li id="comments_area">
+            <%= render 'comments/index', { micropost: micropost, comments: micropost.comments } %>
+        </li>
+    </ul>
+    <hr>
+    <% if logged_in? %>
+        <div class="comment-create">
+            <h3 class="text-left">レビューを投稿する</h3>
+            <%= render 'comments/form', { micropost: micropost, comments: micropost.comments } %>
+        </div>
+    <% end %>
+  </div>
 </li>

@@ -18,10 +18,10 @@ Rails.application.routes.draw do
   resources :microposts do
     post 'add' => 'likes#create'
     delete '/add' => 'likes#destroy'
+    resources :comments, only: [:create, :destroy]
   end
 
   resources :microposts,          only: [:create, :destroy, :show]
-  
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :relationships,       only: [:create, :destroy]

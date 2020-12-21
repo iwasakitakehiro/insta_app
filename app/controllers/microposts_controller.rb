@@ -4,9 +4,16 @@ class MicropostsController < ApplicationController
 
   def index
     @micropost = Micropost.find(params[:id])
+    @user_id = @micropost.user_id
+    @user = User.find(@user_id)
+    @comment = Comment.new
+    @comments = @micropost.comments.order(created_at: :desc)
   end
   
   def show
+    @micropost = Micropost.find(params[:id])
+    @comment = Comment.new
+    @comments = @micropost.comments.order(created_at: :desc)
     redirect_to micropost_path
   end
 
