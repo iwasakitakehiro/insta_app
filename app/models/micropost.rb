@@ -1,4 +1,9 @@
 class Micropost < ApplicationRecord
+  validates :image,   content_type: { in: %w[image/jpeg image/png],
+                                      message: "must be a valid image format" },
+              size:                 { less_than: 5.megabytes,
+                                      message: "should be less than 5MB" }
+  has_one_attached :image
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes
@@ -29,9 +34,9 @@ class Micropost < ApplicationRecord
     end
     # まだ誰もコメントしていない場合は、投稿者に通知を送る
     save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
-end
+  end
 
-def save_notification_comment!(current_user, comment_id, visited_id)
+  def save_notification_comment!(current_user, comment_id, visited_id)
     # コメントは複数回することが考えられるため、１つの投稿に複数回通知する
     notification = current_user.active_notifications.new(
       micropost_id: id,
@@ -44,5 +49,11 @@ def save_notification_comment!(current_user, comment_id, visited_id)
       notification.checked = true
     end
     notification.save if notification.valid?
- end
+  end
+
+  # 表示用のリサイズ済み画像を返す
+  def display_image
+    image.variant(resize_to_fill: [350, 350])
+  end
+  
 end
