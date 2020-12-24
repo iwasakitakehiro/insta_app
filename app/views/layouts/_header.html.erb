@@ -3,12 +3,12 @@
     <div class="container">
       <%= link_to "Insta APP",root_path, id: "logo" %>
       <div class="search-form">
-        <%= render 'users/search_form'%>
+        <%= render 'microposts/search_form'%>
       </div>
       <nav>
         <ul class="nav navbar-nav navbar-right">
           <li><%= link_to "Upload", '#' %></li>
-          <li><%= link_to "Search", search_users_path %></li>
+          <li><%= link_to "Search", search_microposts_path %></li>
           <li>
           <% if unchecked_notifications.any? %>
             <i class="fa fa-circle" style="color: gold;"></i>

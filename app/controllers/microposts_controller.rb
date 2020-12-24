@@ -22,7 +22,7 @@ class MicropostsController < ApplicationController
     @micropost.image.attach(params[:micropost][:image])
     if @micropost.save
       flash[:success] = "Micropost created!"
-      redirect_to root_url
+      redirect_to microposts_index_path(@micropost)
     else
       @feed_items = current_user.feed.paginate(page: params[:page])
       flash[:warning] = "投稿が正しくありません"
@@ -34,6 +34,14 @@ class MicropostsController < ApplicationController
     @micropost.destroy
     flash[:success] = "Micropost deleted"
     redirect_to request.referrer || root_url
+  end
+
+  def search
+    if params[:content].present?
+      @micropost = Micropost.where('content LIKE ?', "%#{params[:content]}%")
+    else
+      @micropost = Micropost.none
+    end
   end
   
   private

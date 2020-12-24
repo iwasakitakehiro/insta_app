@@ -1,0 +1,8 @@
+<h1>Micropost search</h1>
+<% @micropost.each do |micropost| %>
+  <li>
+  <div class= "images">
+    <%= link_to image_tag(micropost.display_image), microposts_index_path(micropost) %>
+  </div>
+  </li>
+<% end %>
