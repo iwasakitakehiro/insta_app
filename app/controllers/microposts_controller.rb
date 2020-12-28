@@ -2,6 +2,10 @@ class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
+  def new
+    @micropost = Micropost.new
+  end
+
   def index
     @micropost = Micropost.find(params[:id])
     @user_id = @micropost.user_id
@@ -33,7 +37,7 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     flash[:success] = "Micropost deleted"
-    redirect_to request.referrer || root_url
+    redirect_to root_url
   end
 
   def search

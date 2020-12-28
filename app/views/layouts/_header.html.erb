@@ -7,7 +7,7 @@
       </div>
       <nav>
         <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "Upload", '#' %></li>
+          <li><%= link_to "Upload", new_micropost_path %></li>
           <li><%= link_to "Search", search_microposts_path %></li>
           <li>
           <% if unchecked_notifications.any? %>

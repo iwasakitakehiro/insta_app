@@ -2,7 +2,13 @@
 <% @micropost.each do |micropost| %>
   <li>
   <div class= "images">
+    <% if micropost.image.attached? %>
     <%= link_to image_tag(micropost.display_image), microposts_index_path(micropost) %>
+    <% end %>
+  </div>
+  <div class = "content">
+    <%= micropost.user.user_name %>
+    <%= micropost.content %>
   </div>
   </li>
 <% end %>
