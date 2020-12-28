@@ -13,8 +13,10 @@ class UsersController < ApplicationController
     @comment = Comment.new
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    if @microposts.any?
     @micropost = Micropost.find(params[:id])
     @comments = @micropost.comments
+    end
   end
   
   def new

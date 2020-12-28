@@ -3,7 +3,41 @@
   <span class="user"><%= link_to micropost.user.user_name, micropost.user %></span>
   <span class="content">
   <%= link_to micropost.content, microposts_index_path(micropost) %>
+  <a class="js-modal-open" href="" data-target="<%= micropost.id %>">
   <%= image_tag micropost.display_image if micropost.image.attached? %>
+  </a>
+    <div id="<%= micropost.id %>" class="modal js-modal">
+      <div class="modal__bg js-modal-close"></div>
+      <div class="modal__content">
+        <%= micropost.user.user_name %>
+        <%= micropost.content %>
+        <%= image_tag micropost.display_image if micropost.image.attached? %>
+            <% micropost.comments.first(2).each do |comment| %>
+              <ul>
+                <li class="comment-container">
+                  <%= micropost.user.user_name %>
+                  <%= comment.content %>
+                <li>
+              <ul>
+            <% end %>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+      $('.js-modal-open').each(function(){
+          $(this).on('click',function(){
+              var target = $(this).data('target');
+              var modal = document.getElementById(target);
+              $(modal).fadeIn();
+              return false;
+          });
+      });
+    $('.js-modal-close').on('click',function(){
+        $('.js-modal').fadeOut();
+        return false;
+      });
+    });
+    </script>
   </span>
   <span class="timestamp">
     <div id="like-btn-<%= micropost.id %>">
@@ -16,11 +50,7 @@
     <% end %>
   </span>
   <div class="row">
-    <ul>
-        <li id="comments_area">
             <%= render 'comments/index', { micropost: micropost, comments: micropost.comments } %>
-        </li>
-    </ul>
     <hr>
     <% if logged_in? %>
         <div class="comment-create">
