@@ -11,6 +11,16 @@
           <%= link_to "Settings", edit_user_path(current_user) %>
         <% end %>
       </div>
+      <div>
+        <%if @user.introduction? %>
+        <%= @user.introduction %>
+        <% end %>
+      </div>
+      <div>
+        <%if @user.web? %>
+        <%=link_to @user.web, "#{@user.web}" %>
+        <% end %>
+      </div>
     </section>
     <section class="stats">
       <%= render 'shared/stats' %>
