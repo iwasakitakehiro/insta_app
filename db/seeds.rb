@@ -24,11 +24,14 @@ User.create!(full_name:  "Example User",
 end
 
 # ユーザーの一部を対象にマイクロポストを生成する
-users = User.order(:created_at).take(6)
-50.times do
+users = User.order(:created_at).take(2)
+2.times do
   content = Faker::Lorem.sentence(word_count: 5)
   users.each { |user| user.microposts.create!(content: content) }
+  microposts = Micropost.all
+  microposts.each { |micropost| micropost.image.attach(io: File.open('app/assets/images/sample_photo.jpg'), filename: 'sample_photo.jpg')}
 end
+
 
 # 以下のリレーションシップを作成する
 users = User.all
