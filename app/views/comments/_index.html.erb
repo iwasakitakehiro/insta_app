@@ -1,29 +1,29 @@
 <ul>
-<li id="comments_area">
-<%= comments.count %>件コメント
-    <% comments.first(2).each do |comment| %>
-        <% unless comment.id.nil? %>
-            <li class="comment-container">
-                <div class="comment-box">
-                    <div class="comment-text">
-                        <p><%= link_to "@#{comment.user.user_name}", user_path(comment.user.id) %></p>
-                        <div class="comment-entry">
-                            <%= comment.content %>
-                            <% if comment.user == current_user %>
-                                <%= link_to micropost_comment_path(comment.micropost_id, comment.id), method: :delete, local: true, class: "comment_destroy" do %>
-                                    <i class="fas fa-trash" style="color: black;"></i>
+    <li id="comments_area">
+        <%= comments.count %>件コメント
+        <% comments.first(2).each do |comment| %>
+            <% unless comment.id.nil? %>
+                <li class="comment-container">
+                    <div class="comment-box">
+                        <div class="comment-text">
+                            <p><%= link_to "@#{comment.user.user_name}", user_path(comment.user.id) %></p>
+                            <div class="comment-entry">
+                                <%= comment.content %>
+                                <% if comment.user == current_user %>
+                                    <%= link_to micropost_comment_path(comment.micropost_id, comment.id), method: :delete, local: true, class: "comment_destroy" do %>
+                                        <i class="fas fa-trash" style="color: black;"></i>
+                                    <% end %>
                                 <% end %>
-                            <% end %>
+                            </div>
+                            <span class="comment-date">
+                                <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                            </span>
                         </div>
-                        <span class="comment-date pull-right">
-                            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
-                        </span>
                     </div>
-                </div>
-            </li>
+                </li>
+            <% end %>
         <% end %>
-    <% end %>
-    <!-- コメント内容(3件目以降) ------------------------------------------------------------------>
+        <!-- コメント内容(3件目以降) ------------------------------------------------------------------>
         <div class="collapse" id="collapseExample">
             <% comments.offset(2).each do |comment| %>
                 <% unless comment.id.nil? %>
@@ -39,8 +39,8 @@
                                     <% end %>
                                 <% end %>
                             </div>
-                            <span class="comment-date pull-right">
-                                    <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                            <span class="comment-date">
+                                <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
                             </span>
                         </div>
                     </div>
@@ -48,8 +48,8 @@
                 <% end %>
             <% end %>
         </div>
-    <li>
-<ul>
+    </li>
+</ul>
 <% if comments.count > 2 %>
 <h6 class="more" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">もっと見る....</h6>
 <% end %>

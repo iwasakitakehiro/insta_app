@@ -3,6 +3,10 @@
 
 /* mixins, variables, etc. */
 
+ul {
+  list-style: none;
+}
+
 $gray-medium-light: #eaeaea;
 
 @mixin box_sizing {
@@ -228,11 +232,11 @@ input {
 /* microposts */
 
 .microposts {
+  border: 1px solid $gray-lighter;
   list-style: none;
   padding: 0;
   li {
     padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
   }
   .user {
     margin-top: 5em;
@@ -272,16 +276,22 @@ span.image {
   }
 }
 
+
 /* likes */
 .unlike {
   font-size: 20px;
   color: #376ab8; 
   }
- 
- .like {
+.like {
   font-size: 20px;
   color:#808080
-  }
+}
+
+.like-content {
+  display: inline-block;
+}
+
+
 
   .search-form {
     float: left;
@@ -322,4 +332,20 @@ span.image {
     top: 50%;
     transform: translate(-50%,-50%);
     width: 60%;
+}
+
+.hoge {
+  width: 100%;
+}
+
+.post {
+  display: inline-block;
+  width: 25%;
+  vertical-align: top;
+  margin: 5px;
+  text-align: center;
+}
+
+.comment-container {
+  border-top: 2px solid $gray-lighter;
 }

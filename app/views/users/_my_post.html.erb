@@ -1,0 +1,20 @@
+<% @microposts.each_slice(3) do |a,b,c| %>
+  <ul class="row align-items-start">
+    <li class="post col-3">
+      <% if a !=nil %>
+        <%= link_to image_tag(a.display_image), microposts_index_path(a),{width: "100%"} %>
+      <% end %>
+    </li>
+    <li class="post col-3">
+      <% if b !=nil %>
+        <%= link_to image_tag(b.display_image), microposts_index_path(b),{class: "image", width: "100%"} %>
+      <% end %>
+    </li>
+    <li class="post col-3">
+      <% if c !=nil %>
+        <%= link_to image_tag(c.display_image), microposts_index_path(c),{class: "image", width: "100%"} %>
+      <% end %>
+    </li>
+  </ul>
+<% end %>
+

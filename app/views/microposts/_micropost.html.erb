@@ -1,62 +1,70 @@
-<li id="micropost-<%= micropost.id %>">
-  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
-  <span class="user"><%= link_to micropost.user.user_name, micropost.user %></span>
-  <span class="content">
-  <%= link_to micropost.content, microposts_index_path(micropost) %>
-  <a class="js-modal-open" href="" data-target="<%= micropost.id %>">
-  <%= image_tag micropost.display_image if micropost.image.attached? %>
-  </a>
-    <div id="<%= micropost.id %>" class="modal js-modal">
-      <div class="modal__bg js-modal-close"></div>
-      <div class="modal__content">
-        <%= micropost.user.user_name %>
-        <%= micropost.content %>
-        <%= image_tag micropost.display_image if micropost.image.attached? %>
-            <% micropost.comments.first(2).each do |comment| %>
-              <ul>
-                <li class="comment-container">
-                  <%= micropost.user.user_name %>
-                  <%= comment.content %>
-                <li>
-              <ul>
-            <% end %>
-      </div>
-    </div>
-    <script type="text/javascript">
-    $(function(){
-      $('.js-modal-open').each(function(){
-          $(this).on('click',function(){
-              var target = $(this).data('target');
-              var modal = document.getElementById(target);
-              $(modal).fadeIn();
-              return false;
-          });
-      });
-    $('.js-modal-close').on('click',function(){
-        $('.js-modal').fadeOut();
-        return false;
-      });
-    });
-    </script>
-  </span>
-  <span class="timestamp">
-    <div id="like-btn-<%= micropost.id %>">
-    <%= render 'likes/like', micropost: micropost %>
-    </div>
-      Posted <%= time_ago_in_words(micropost.created_at) %> ago.
-      <% if current_user?(micropost.user) %>
-        <%= link_to "delete", micropost , method: :delete,
-                                        data: { confirm: "You sure?" } %>
-    <% end %>
-  </span>
+<div class="microposts">
   <div class="row">
-            <%= render 'comments/index', { micropost: micropost, comments: micropost.comments } %>
-    <hr>
-    <% if logged_in? %>
-        <div class="comment-create">
-            <h3 class="text-left">レビューを投稿する</h3>
-            <%= render 'comments/form', { micropost: micropost, comments: micropost.comments } %>
-        </div>
-    <% end %>
+    <div class="col-lg-8 col-col-lg-8">
+      <li id="micropost-<%= micropost.id %>">
+        <span class="content">
+          <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+          <span class="user"><%= link_to micropost.user.user_name, micropost.user %></span>
+          <div class="post-img">
+            <a class="js-modal-open" href="" data-target="<%= micropost.id %>">
+            <%= image_tag micropost.display_image if micropost.image.attached? %>
+            </a>
+          </div>
+            <div id="<%= micropost.id %>" class="modal js-modal">
+              <div class="modal__bg js-modal-close"></div>
+              <div class="modal__content">
+                <%= micropost.user.user_name %>
+                <%= micropost.content %>
+                <%= image_tag micropost.display_image if micropost.image.attached? %>
+                    <% micropost.comments.first(2).each do |comment| %>
+                      <ul>
+                        <li class="comment-container">
+                          <%= micropost.user.user_name %>
+                          <%= comment.content %>
+                        <li>
+                      <ul>
+                    <% end %>
+              </div>
+            </div>
+            <script type="text/javascript">
+            $(function(){
+              $('.js-modal-open').each(function(){
+                  $(this).on('click',function(){
+                      var target = $(this).data('target');
+                      var modal = document.getElementById(target);
+                      $(modal).fadeIn();
+                      return false;
+                  });
+              });
+            $('.js-modal-close').on('click',function(){
+                $('.js-modal').fadeOut();
+                return false;
+              });
+            });
+            </script>
+            <span class="timestamp">
+              <%= micropost.content %>
+              <div id="like-btn-<%= micropost.id %>">
+              <%= render 'likes/like', micropost: micropost %>
+              </div>
+              Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+              <% if current_user?(micropost.user) %>
+                <%= link_to "delete", micropost , method: :delete,
+                                                data: { confirm: "You sure?" } %>
+              <% end %>
+            <span>
+          </span>
+          <div class="row">
+                    <%= render 'comments/index', { micropost: micropost, comments: micropost.comments } %>
+            <% if logged_in? %>
+                <div class="comment-create">
+                    <h4 class="text-left">コメント投稿</h4>
+                    <%= render 'comments/form', { micropost: micropost, comments: micropost.comments } %>
+                </div>
+            <% end %>
+          </div>
+        </span>
+      </li>
+    </div>
   </div>
-</li>
+</div>
