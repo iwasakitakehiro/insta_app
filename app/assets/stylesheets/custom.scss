@@ -232,11 +232,13 @@ input {
 /* microposts */
 
 .microposts {
-  border: 1px solid $gray-lighter;
   list-style: none;
   padding: 0;
   li {
     padding: 10px 0;
+  }
+  .outline {
+    border: 1px solid $gray-lighter;
   }
   .user {
     margin-top: 5em;
@@ -301,7 +303,7 @@ span.image {
   }
 
   .field {
-    float: left;
+    display: inline-block;
   }
 
   .fiels-container {
@@ -334,18 +336,79 @@ span.image {
     width: 60%;
 }
 
-.hoge {
-  width: 100%;
+.modal__comment {
+  display: block;
+}
+
+.modal__contents {
+  display: inline-block;
+  text-align: center;
 }
 
 .post {
   display: inline-block;
-  width: 25%;
   vertical-align: top;
-  margin: 5px;
+  margin: 10px;
   text-align: center;
 }
 
 .comment-container {
   border-top: 2px solid $gray-lighter;
+}
+
+.modal__left {
+  position: relative;
+}
+
+.modal__right {
+  position: absolute;
+  top: 60px;
+  width: 50%;
+}
+
+.notice-fa {
+  position: absolute;
+  top: 10px;
+}
+
+.notice-btn {
+  position: relative;
+}
+
+.posts {
+  width: 100%;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .search-form {
+    display: inline-block;
+    width: 40%;
+  }
+  .field {
+    display: inline-block;
+  }
+
+  body {
+    padding-top: 200px;
+  }
+
+  .navbar-right {
+    text-align: right;
+    display: inline-block;
+    float: right;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search-form {
+    display: inline-block;
+    width: 60%;
+    position: relative;
+  }
+
+  .navbar-right {
+    display: inline-block;
+    
+  }
 }

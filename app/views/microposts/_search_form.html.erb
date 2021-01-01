@@ -1,9 +1,9 @@
 <%= form_with url: search_microposts_path, method: :get, local: true do |f| %>
-  <div class="field-container">
-    <div class= "field">
+  <div class="form-inline my-2 my-lg-0">
+    <div class= "field mr-sm-2">
     <%= f.text_field :content %>
     </div>
-    <div class="field">
+    <div class="field my-2 my-sm-0">
     <%= f.submit :search %>
     </div>
   </div>

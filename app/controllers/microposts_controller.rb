@@ -27,6 +27,9 @@ class MicropostsController < ApplicationController
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to microposts_index_path(@micropost)
+    elsif !@micropost.image == nil?
+      flash[:warning] = "画像を投稿してください"
+      redirect_to '/microposts/new'
     else
       @feed_items = current_user.feed.paginate(page: params[:page])
       flash[:warning] = "投稿が正しくありません"

@@ -1,8 +1,9 @@
 <div class="row">
-  <div class="col-md-4 col-md-offset-4">
+<div class="col-md-4"></div>
+  <div class="col-md-4">
     <h1>投稿ページ</h1>
     <%= form_with(model: @micropost, local: true) do |f| %>
-      <div class="field">
+      <div>
         <%= f.text_area :content, placeholder: "Compose new micropost..." %>
       </div>
       <%= f.submit "Post", class: "btn btn-primary" %>
@@ -21,4 +22,5 @@
       });
     </script>
   </div>
+  <div class="col-md-4"></div>
 </div>

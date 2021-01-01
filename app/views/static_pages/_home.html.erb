@@ -1,20 +1,18 @@
-<div class="container">
-  <div class="row">
-    <aside class="col-md-4">
-      <section class="user_info">
+<div class="row">
+  <aside class="col-lg-8">
+    <section class="user_info">
       <%= render 'shared/user_info' %>
-      </section>
-      <section class="stats">
-        <%= render 'shared/stats' %>
-      </section>
-    </aside>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-        <h3>みんなの投稿</h3>
-        <%= render 'shared/feed' %>
-      </div>
-    </div>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+  </aside>
+</div>
+<div class="row">
+<div class="col-lg-2"></div>
+  <div class="col-lg-8">
+    <h3>みんなの投稿</h3>
+    <%= render 'shared/feed' %>
   </div>
 </div>
+<div class="col-lg-2"></div>

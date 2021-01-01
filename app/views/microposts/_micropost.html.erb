@@ -1,29 +1,45 @@
 <div class="microposts">
-  <div class="row">
-    <div class="col-lg-8 col-col-lg-8">
+  <div class="row outline">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-8">
       <li id="micropost-<%= micropost.id %>">
         <span class="content">
           <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
-          <span class="user"><%= link_to micropost.user.user_name, micropost.user %></span>
+          <span class="user"><%= link_to micropost.user.user_name, user_path(micropost.user) %></span>
           <div class="post-img">
             <a class="js-modal-open" href="" data-target="<%= micropost.id %>">
-            <%= image_tag micropost.display_image if micropost.image.attached? %>
+              <%= image_tag micropost.display_image if micropost.image.attached? %>
             </a>
           </div>
             <div id="<%= micropost.id %>" class="modal js-modal">
               <div class="modal__bg js-modal-close"></div>
               <div class="modal__content">
-                <%= micropost.user.user_name %>
-                <%= micropost.content %>
-                <%= image_tag micropost.display_image if micropost.image.attached? %>
+                <div class="modal__left modal__contents">
+                  <%= micropost.user.user_name %>
+                  <%= micropost.content %>
+                  <%= image_tag micropost.display_image if micropost.image.attached? %>
+                </div>
+                <ul class="modal__contents">
+                  <div class="modal__right modal__contents">
                     <% micropost.comments.first(2).each do |comment| %>
-                      <ul>
-                        <li class="comment-container">
-                          <%= micropost.user.user_name %>
-                          <%= comment.content %>
-                        <li>
-                      <ul>
+                      <li class="comment-container">
+                        <div class="comment-box">
+                          <div class="comment-text">
+                            <p><%= link_to "@#{comment.user.user_name}", user_path(comment.user.id) %></p>
+                            <div class="comment-entry">
+                              <%= comment.content %>
+                            </div>
+                            <span class="comment-date">
+                              <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
                     <% end %>
+                    <% if micropost.comments.count == 0 %><p>コメントなし</p><% end %>
+                    <% if micropost.comments.count > 2 %><%="他#{(micropost.comments.count)-2}件"%><% end %>
+                  </div>
+                <ul>
               </div>
             </div>
             <script type="text/javascript">
@@ -45,26 +61,26 @@
             <span class="timestamp">
               <%= micropost.content %>
               <div id="like-btn-<%= micropost.id %>">
-              <%= render 'likes/like', micropost: micropost %>
+                <%= render 'likes/like', micropost: micropost %>
               </div>
               Posted <%= time_ago_in_words(micropost.created_at) %> ago.
               <% if current_user?(micropost.user) %>
                 <%= link_to "delete", micropost , method: :delete,
                                                 data: { confirm: "You sure?" } %>
               <% end %>
-            <span>
-          </span>
-          <div class="row">
-                    <%= render 'comments/index', { micropost: micropost, comments: micropost.comments } %>
+            </span>
+          <div>
+            <%= render 'comments/index', { micropost: micropost, comments: micropost.comments } %>
             <% if logged_in? %>
-                <div class="comment-create">
-                    <h4 class="text-left">コメント投稿</h4>
-                    <%= render 'comments/form', { micropost: micropost, comments: micropost.comments } %>
-                </div>
+              <div class="comment-create">
+                <h4 class="text-left">コメント投稿</h4>
+                <%= render 'comments/form', { micropost: micropost, comments: micropost.comments } %>
+              </div>
             <% end %>
           </div>
         </span>
       </li>
     </div>
+    <div class="col-lg-2"></div>
   </div>
 </div>

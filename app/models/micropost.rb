@@ -6,13 +6,13 @@ class Micropost < ApplicationRecord
   has_one_attached :image
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :users, through: :likes
   belongs_to :user
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
-
+  validates :image, presence: true
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
   end
@@ -53,7 +53,7 @@ class Micropost < ApplicationRecord
 
   # 表示用のリサイズ済み画像を返す
   def display_image
-    image.variant(resize_to_fill: [250, 250])
+    image.variant(resize_to_fill: [300,300])
   end
   
 end
